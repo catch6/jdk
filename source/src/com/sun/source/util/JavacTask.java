@@ -56,14 +56,16 @@ public abstract class JavacTask implements CompilationTask {
      * If the compiler is being invoked using a
      * {@link javax.tools.JavaCompiler.CompilationTask CompilationTask},
      * then that task will be returned.
+     *
      * @param processingEnvironment the processing environment
      * @return the {@code JavacTask} for a {@code ProcessingEnvironment}
      * @since 1.8
      */
     public static JavacTask instance(ProcessingEnvironment processingEnvironment) {
         if (!processingEnvironment.getClass().getName().equals(
-                "com.sun.tools.javac.processing.JavacProcessingEnvironment"))
+            "com.sun.tools.javac.processing.JavacProcessingEnvironment")) {
             throw new IllegalArgumentException();
+        }
         Context c = ((JavacProcessingEnvironment) processingEnvironment).getContext();
         JavacTask t = c.get(JavacTask.class);
         return (t != null) ? t : new BasicJavacTask(c, true);
@@ -73,7 +75,7 @@ public abstract class JavacTask implements CompilationTask {
      * Parse the specified files returning a list of abstract syntax trees.
      *
      * @return a list of abstract syntax trees
-     * @throws IOException if an unhandled I/O error occurred in the compiler.
+     * @throws IOException           if an unhandled I/O error occurred in the compiler.
      * @throws IllegalStateException if the operation cannot be performed at this time.
      */
     public abstract Iterable<? extends CompilationUnitTree> parse()
@@ -83,7 +85,7 @@ public abstract class JavacTask implements CompilationTask {
      * Complete all analysis.
      *
      * @return a list of elements that were analyzed
-     * @throws IOException if an unhandled I/O error occurred in the compiler.
+     * @throws IOException           if an unhandled I/O error occurred in the compiler.
      * @throws IllegalStateException if the operation cannot be performed at this time.
      */
     public abstract Iterable<? extends Element> analyze() throws IOException;
@@ -92,7 +94,7 @@ public abstract class JavacTask implements CompilationTask {
      * Generate code.
      *
      * @return a list of files that were generated
-     * @throws IOException if an unhandled I/O error occurred in the compiler.
+     * @throws IOException           if an unhandled I/O error occurred in the compiler.
      * @throws IllegalStateException if the operation cannot be performed at this time.
      */
     public abstract Iterable<? extends JavaFileObject> generate() throws IOException;
@@ -100,10 +102,10 @@ public abstract class JavacTask implements CompilationTask {
     /**
      * The specified listener will receive notification of events
      * describing the progress of this compilation task.
-     *
+     * <p>
      * If another listener is receiving notifications as a result of a prior
      * call of this method, then that listener will no longer receive notifications.
-     *
+     * <p>
      * Informally, this method is equivalent to calling {@code removeTaskListener} for
      * any listener that has been previously set, followed by {@code addTaskListener}
      * for the new listener.
@@ -115,7 +117,7 @@ public abstract class JavacTask implements CompilationTask {
     /**
      * The specified listener will receive notification of events
      * describing the progress of this compilation task.
-     *
+     * <p>
      * This method may be called at any time before or during the compilation.
      *
      * @throws IllegalStateException if the specified listener has already been added.
@@ -126,7 +128,7 @@ public abstract class JavacTask implements CompilationTask {
     /**
      * The specified listener will no longer receive notification of events
      * describing the progress of this compilation task.
-     *
+     * <p>
      * This method may be called at any time before or during the compilation.
      *
      * @since 1.8
@@ -137,6 +139,7 @@ public abstract class JavacTask implements CompilationTask {
      * Get a type mirror of the tree node determined by the specified path.
      * This method has been superceded by methods on
      * {@link com.sun.source.util.Trees Trees}.
+     *
      * @see com.sun.source.util.Trees#getTypeMirror
      */
     public abstract TypeMirror getTypeMirror(Iterable<? extends Tree> path);
@@ -150,4 +153,5 @@ public abstract class JavacTask implements CompilationTask {
      * Get a utility object for dealing with type mirrors.
      */
     public abstract Types getTypes();
+
 }
