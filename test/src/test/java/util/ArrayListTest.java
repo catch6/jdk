@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,12 +42,24 @@ public class ArrayListTest {
     }
 
     @Test
-    void addAll() {
+    void addAll1() {
         ArrayList<String> list = new ArrayList<>();
         list.add("a");
         list.add("b");
         boolean b = list.addAll(new ArrayList<>());
         Assertions.assertFalse(b);
+    }
+
+    @Test
+    void iterator1() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+            iterator.remove();
+        }
     }
 
 }

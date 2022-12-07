@@ -14,4 +14,5 @@
 
 ### 容器&集合
 
-- 🌓 [java.util.ArrayList](./source/src/java/util/ArrayList.java)
+- 🌕 [java.util.ArrayList](./source/src/java/util/ArrayList.java)
+- 🌑 [java.util.LinkedList](./source/src/java/util/LinkedList.java)
